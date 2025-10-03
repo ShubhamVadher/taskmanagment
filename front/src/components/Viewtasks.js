@@ -32,7 +32,7 @@ const Viewtasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("https://taskmanagment-backend-s883.onrender.com/gettasks", {
+        const response = await axios.get("http://localhost:5000/gettasks", {
           withCredentials: true,
         });
         if (response.status === 200) {
@@ -58,7 +58,7 @@ const Viewtasks = () => {
 
     try {
       const res = await axios.post(
-        `https://taskmanagment-backend-s883.onrender.com/updatetask/${id}`,
+        `http://localhost:5000/updatetask/${id}`,
         { message },
         { withCredentials: true }
       );
@@ -94,7 +94,7 @@ const Viewtasks = () => {
 
     try {
       const response = await axios.get(
-        `https://taskmanagment-backend-s883.onrender.com/complete/${id}`,
+        `http://localhost:5000/complete/${id}`,
         { withCredentials: true }
       );
 
