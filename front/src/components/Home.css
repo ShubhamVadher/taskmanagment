@@ -1,0 +1,148 @@
+/* ===============================
+   General Styles
+=============================== */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===============================
+   Header
+=============================== */
+.home-header {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: #fff;
+  text-align: center;
+  padding: 4rem 1rem;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.app-name{
+    margin-bottom: 1rem;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.app-subtitle {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* ===============================
+   Main Content
+=============================== */
+.home-main {
+  flex: 1;
+  max-width: 900px;
+  margin: -4rem auto 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.home-section {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.home-section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.section-title {
+  margin-top: 0;
+  font-size: 2rem;
+  color: #1e3a8a;
+}
+
+.section-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-top: 0.5rem;
+  color: #4b5563;
+}
+
+/* ===============================
+   Footer
+=============================== */
+.home-footer {
+  background-color: #1e293b;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.home-footer:hover {
+  background-color: #111827;
+}
+
+/* ===============================
+   Animations
+=============================== */
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-down {
+  animation: fadeDown 1s ease forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUp 1s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+/* ===============================
+   Responsive
+=============================== */
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 2.2rem;
+  }
+
+  .home-section {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,163 @@
+
+.create-task-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e3a8a;
+}
+
+
+.create-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+
+.checkbox-group label {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.member-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px; 
+  padding: 0 1rem; 
+  font-size: 1rem; 
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-btn {
+  background-color: #10b981;
+  color: #fff;
+  border: none;
+}
+
+.add-btn:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+}
+
+.remove-btn {
+  background-color: #ef4444;
+  border: none;
+  color: #fff;
+  padding: 0 0.6rem;
+  min-width: 40px;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.submit-btn {
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+}
+
+.submit-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+
+.error-text {
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: -0.5rem;
+}
+
+
+.members-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 480px) {
+  .create-task-container {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .form-input {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+    height: 36px;
+    padding: 0 0.8rem;
+  }
+
+  .remove-btn {
+    padding: 0 0.5rem;
+    min-width: 36px;
+  }
+}

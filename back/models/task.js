@@ -20,7 +20,7 @@ const task_schema = mongoose.Schema({
       member: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-        required: true,
+       
       },
       time: {
         type: Date,
