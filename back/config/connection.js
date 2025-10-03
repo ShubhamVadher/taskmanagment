@@ -1,5 +1,5 @@
 const mongoose=require('mongoose')
-
-const connect=mongoose.connect('mongodb://localhost:27017/task');
+const conn=process.env.connectionString;
+const connect=mongoose.connect(conn);
 
 module.exports=mongoose.connection;
