@@ -20,7 +20,7 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/logout', { withCredentials: true });
+      const response = await axios.get('https://taskmanagment-backend-s883.onrender.com/logout', { withCredentials: true });
       if (response.status === 200) {
         logout({ logoutParams: { returnTo: window.location.origin } });
       } else {
@@ -38,7 +38,7 @@ export const Navbar = () => {
         try {
           const nameToSend = getDisplayName();
           const response = await axios.post(
-            "http://localhost:5000/signin",
+            "https://taskmanagment-backend-s883.onrender.com/signin",
             { email: user.email, name: nameToSend },
             { withCredentials: true }
           );
