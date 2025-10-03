@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookie_parser());
 
 app.use(cors({
-  origin: "http://localhost:3000", // React dev server
+  origin: "http://localhost:3000",
   credentials: true,
 }));
 
@@ -179,4 +179,6 @@ app.get("/complete/:id", isloggedin, async (req, res) => {
 
 const port=process.nextTick.PORT||5000
 
-app.listen(port,()=>{console.log("Listening over 5000")})
+
+
+app.listen(port,()=>{console.log(`Listening over ${port}`)})
