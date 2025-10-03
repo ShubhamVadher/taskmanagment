@@ -178,5 +178,6 @@ app.get("/complete/:id", isloggedin, async (req, res) => {
 
 
 
+const port=process.nextTick.PORT||5000
 
-app.listen(5000,()=>{console.log("Listening over 5000")})
+app.listen(port,()=>{console.log(`Listening over ${port}`)})
