@@ -8,7 +8,7 @@ const Createtask = () => {
     members: [],
     // self: false
   });
-
+  const url="https://taskmanagment-backend-dnst.onrender.com"
   const [memberInput, setMemberInput] = useState("");
   const [error, setError] = useState("");
 
@@ -63,7 +63,7 @@ const Createtask = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/createtask",
+        `${url}/createtask`,
         details,
         { withCredentials: true }
       );

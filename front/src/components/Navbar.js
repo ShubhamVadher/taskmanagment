@@ -17,10 +17,10 @@ export const Navbar = () => {
       ? user.name
       : user["https://your-app.com/username"] || user.nickname || user.name;
   };
-
+  const url="https://taskmanagment-backend-dnst.onrender.com";
   const handleLogout = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/logout', { withCredentials: true });
+      const response = await axios.get(`${url}/logout`, { withCredentials: true });
       if (response.status === 200) {
         logout({ logoutParams: { returnTo: window.location.origin } });
       } else {
@@ -38,7 +38,7 @@ export const Navbar = () => {
         try {
           const nameToSend = getDisplayName();
           const response = await axios.post(
-            "http://localhost:5000/signin",
+            `${url}/signin`,
             { email: user.email, name: nameToSend },
             { withCredentials: true }
           );

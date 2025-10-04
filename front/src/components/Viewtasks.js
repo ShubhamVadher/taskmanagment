@@ -28,11 +28,11 @@ const Viewtasks = () => {
       }
     }
   }, []);
-
+  const url="https://taskmanagment-backend-dnst.onrender.com";
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/gettasks", {
+        const response = await axios.get(`${url}/gettasks`, {
           withCredentials: true,
         });
         if (response.status === 200) {
@@ -58,7 +58,7 @@ const Viewtasks = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:5000/updatetask/${id}`,
+        `${url}/updatetask/${id}`,
         { message },
         { withCredentials: true }
       );
@@ -94,7 +94,7 @@ const Viewtasks = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/complete/${id}`,
+        `${url}/complete/${id}`,
         { withCredentials: true }
       );
 
