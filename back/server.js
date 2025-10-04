@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookie_parser());
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://taskmanagment-front.onrender.com",
   credentials: true,
 }));
 
