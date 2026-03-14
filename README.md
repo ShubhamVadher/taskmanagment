@@ -99,40 +99,6 @@ taskmanagment/
   * Task detail page — all members, all updates, delete task
   * Removing a user deletes all their owned tasks and removes them from all member groups
   * Deleting a task removes it from all members' task lists
-
-\---
-
-## 🗄️ Database Schema
-
-### User
-
-```js
-{
-  name: String,
-  email: String,        // unique
-  tasks: \[ObjectId],    // ref: Task
-  createdAt: Date
-}
-```
-
-### Task
-
-```js
-{
-  task\_name: String,
-  created\_by: ObjectId,   // ref: User
-  members: \[ObjectId],    // ref: User
-  completed: Boolean,
-  update: \[
-    {
-      member: ObjectId,   // ref: User
-      message: String
-    }
-  ],
-  createdAt: Date
-}
-```
-
 \---
 
 ## 🔒 API Endpoints
@@ -258,8 +224,4 @@ App runs at `http://localhost:3000`
 When a task is created, every assigned member (including the creator) receives an email notification. Configure Gmail credentials in `.env` using an [App Password](https://support.google.com/accounts/answer/185833).
 
 \---
-
-## 📄 License
-
-MIT
 
