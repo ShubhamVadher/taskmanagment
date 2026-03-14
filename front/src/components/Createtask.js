@@ -8,7 +8,7 @@ const Createtask = () => {
     members: [],
     // self: false
   });
-  const url="https://taskmanagment-backend-dnst.onrender.com"
+  const url="http://localhost:5000"
   const [memberInput, setMemberInput] = useState("");
   const [error, setError] = useState("");
 

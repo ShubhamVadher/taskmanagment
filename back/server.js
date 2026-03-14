@@ -5,10 +5,12 @@ const cors = require("cors");
 require('./config/connection');
 const USER=require('./models/user');
 const TASK=require('./models/task');
-const jwt=require('./jwt/gentoken');
+// const jwt=require('./jwt/gentoken');
 const gentoken = require('./jwt/gentoken');
 const isloggedin=require('./middleware/isloggedin')
 const {mail}=require('./mailing/mail');
+const admintoken=require('./jwt/adminjwt')
+const isAdmin = require('./middleware/isadmin');
 
 
 const app=express();
@@ -174,10 +176,163 @@ app.get("/complete/:id", isloggedin, async (req, res) => {
   }
 });
 
+app.get('/adminloggin', async (req, res) => {
+  const token = admintoken()
+  return res
+    .status(200)
+    .cookie("AdminToken", token, {
+      httpOnly: false,
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000   // 1 day in ms
+    })
+    .json({ message: 'ok' })
+})
+
+app.get('/adminlogout', isAdmin, (req, res) => {
+  res.clearCookie('AdminToken', { path: '/' });
+  return res.status(200).json({ message: 'Admin logged out successfully' });
+});
+
+
+app.get('/admin/users', isAdmin, async (req, res) => {
+  try {
+    const users = await USER.find().select('name email tasks createdAt')
+    return res.status(200).json({ users })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+app.get('/admin/user', isAdmin, async (req, res) => {
+  try {
+    const { email } = req.query
+    const user = await USER.findOne({ email }).select('name email tasks createdAt')
+    if (!user) return res.status(404).json({ message: 'No user found with that email' })
+    return res.status(200).json({ user })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
 
 
 
-const port=process.nextTick.PORT||5000
+app.get('/admin/tasks', isAdmin, async (req, res) => {
+  try {
+    const { status, taskName, creatorEmail } = req.query
+    let filter = {}
+
+
+    if (status === 'completed') filter.completed = true
+    if (status === 'pending') filter.completed = false
+
+
+    if (taskName) filter.task_name = { $regex: taskName, $options: 'i' }
+
+    if (creatorEmail) {
+      const creator = await USER.findOne({ email: creatorEmail })
+      if (!creator) return res.status(200).json({ tasks: [] })
+      filter.created_by = creator._id
+    }
+
+    const tasks = await TASK.find(filter)
+      .populate('created_by', 'name email')
+      .populate('members', 'name email')
+      .sort({ createdAt: -1 })
+
+    return res.status(200).json({ tasks })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+
+app.get('/admin/user/:id', isAdmin, async (req, res) => {
+  try {
+    const user = await USER.findById(req.params.id)
+      .populate({
+        path: 'tasks',
+        populate: [
+          { path: 'created_by', select: 'name email' },
+          { path: 'members', select: 'name email' }
+        ]
+      })
+    if (!user) return res.status(404).json({ message: 'User not found' })
+    return res.status(200).json({ user })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+app.delete('/admin/user/:id', isAdmin, async (req, res) => {
+  try {
+    const user = await USER.findById(req.params.id)
+    if (!user) return res.status(404).json({ message: 'User not found' })
+
+
+    const ownedTasks = await TASK.find({ created_by: user._id })
+    const ownedTaskIds = ownedTasks.map(t => t._id)
+
+    await USER.updateMany(
+      { tasks: { $in: ownedTaskIds } },
+      { $pull: { tasks: { $in: ownedTaskIds } } }
+    )
+
+
+    await TASK.deleteMany({ created_by: user._id })
+
+
+    await TASK.updateMany(
+      { members: user._id },
+      { $pull: { members: user._id } }
+    )
+
+
+    await USER.findByIdAndDelete(user._id)
+
+    return res.status(200).json({ message: 'User deleted successfully' })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+app.get('/admin/task/:id', isAdmin, async (req, res) => {
+  try {
+    const task = await TASK.findById(req.params.id)
+      .populate('created_by', 'name email')
+      .populate('members', 'name email')
+      .populate('update.member', 'name email')
+    if (!task) return res.status(404).json({ message: 'Task not found' })
+    return res.status(200).json({ task })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+app.delete('/admin/task/:id', isAdmin, async (req, res) => {
+  try {
+    const task = await TASK.findById(req.params.id)
+    if (!task) return res.status(404).json({ message: 'Task not found' })
+
+    await USER.updateMany(
+      { tasks: task._id },
+      { $pull: { tasks: task._id } }
+    )
+
+    await TASK.findByIdAndDelete(req.params.id)
+    return res.status(200).json({ message: 'Task deleted successfully' })
+  } catch (err) {
+    return res.status(500).json({ message: 'Server error' })
+  }
+})
+
+
+const port=process.env.PORT||5000
 
 
 

@@ -17,7 +17,7 @@ export const Navbar = () => {
       ? user.name
       : user["https://your-app.com/username"] || user.nickname || user.name;
   };
-  const url="https://taskmanagment-backend-dnst.onrender.com";
+  const url="http://localhost:5000";
   const handleLogout = async () => {
     try {
       const response = await axios.get(`${url}/logout`, { withCredentials: true });

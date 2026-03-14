@@ -28,7 +28,7 @@ const Viewtasks = () => {
       }
     }
   }, []);
-  const url="https://taskmanagment-backend-dnst.onrender.com";
+  const url="http://localhost:5000";
   useEffect(() => {
     const fetchTasks = async () => {
       try {
