@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookie_parser());
 
 app.use(cors({
-  origin: "https://taskmanagment-front.onrender.com",
+  origin: "http://localhost:3000",
   credentials: true,
 }));
 
@@ -143,6 +143,7 @@ app.get("/gettasks", isloggedin, async (req, res) => {
 app.post("/updatetask/:id",isloggedin,async(req,res)=>{
   let id=req.params.id;
   const task=await TASK.findOne({_id:id});
+  
   const obj={member:req.user._id,message:req.body.message};
   task.update.push(obj);
   await task.save();

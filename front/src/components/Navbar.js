@@ -19,18 +19,18 @@ export const Navbar = () => {
   };
   const url="http://localhost:5000";
   const handleLogout = async () => {
-    // try {
-    //   const response = await axios.get(`${url}/logout`, { withCredentials: true });
-    //   if (response.status === 200) {
-    //     logout({ logoutParams: { returnTo: window.location.origin } });
-    //   } else {
-    //     alert('Logout failed on server. Please try again.');
-    //   }
-    // } catch (err) {
-    //   alert('Logout failed on server. Please try again.');
-    //   console.error('Backend logout failed:', err);
-    // }
-    logout({ logoutParams: { returnTo: window.location.origin } });
+    try {
+      const response = await axios.get(`${url}/logout`, { withCredentials: true });
+      if (response.status === 200) {
+        logout({ logoutParams: { returnTo: window.location.origin } });
+      } else {
+        alert('Logout failed on server. Please try again.');
+      }
+    } catch (err) {
+      alert('Logout failed on server. Please try again.');
+      console.error('Backend logout failed:', err);
+    }
+    // logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
   useEffect(() => {
